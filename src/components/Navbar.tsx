@@ -43,7 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <nav
       id="main-nav"
-      className={`fixed top-0 left-0 w-full z-50 bg-[#ffffff] transition-all duration-300 border-b border-[#e2e2e2] ${
+      className={`sticky top-0 left-0 w-full z-40 bg-[#ffffff] transition-all duration-300 border-b border-[#e2e2e2] ${
         isScrolled ? 'py-3 shadow-xs' : 'py-5'
       }`}
     >

@@ -13,6 +13,7 @@ import { CartDrawer } from './components/CartDrawer';
 import { SearchModal } from './components/SearchModal';
 import { AccountDrawer } from './components/AccountDrawer';
 import { InfoModal } from './components/InfoModal';
+import { RecognitionExplanationPanel } from './components/RecognitionExplanationPanel';
 
 import { PRODUCTS } from './data/products';
 import { ActiveTab, CartItem, Product } from './types';
@@ -20,7 +21,6 @@ import { ActiveTab, CartItem, Product } from './types';
 export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('home');
   const [cartItems, setCartItems] = useState<CartItem[]>([
-    // Initial cart item to show functionality
     {
       product: PRODUCTS[0],
       quantity: 1,
@@ -103,66 +103,83 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f9f9f9] text-[#1a1c1c] font-sans-work flex flex-col justify-between selection:bg-black selection:text-white">
-      {/* Top Navbar */}
-      <Navbar
-        activeTab={activeTab}
-        setActiveTab={handleNavigate}
-        cartCount={totalCartCount}
-        onOpenCart={() => setIsCartOpen(true)}
-        onOpenSearch={() => setIsSearchOpen(true)}
-        onOpenAccount={() => setIsAccountOpen(true)}
-      />
+    <div className="flex flex-row w-full h-screen overflow-hidden bg-[#f9f9f9] text-[#1a1c1c] font-sans-work selection:bg-black selection:text-white">
+      {/* LEFT PANEL: Live Interactive Storefront */}
+      <div
+        id="left-homepage-panel"
+        className="w-[55%] sm:w-[58%] lg:w-[62%] xl:w-[65%] h-screen overflow-y-auto flex flex-col justify-between border-r border-[#e2e2e2] relative bg-[#f9f9f9] shrink-0"
+      >
+        {/* Top Navbar */}
+        <Navbar
+          activeTab={activeTab}
+          setActiveTab={handleNavigate}
+          cartCount={totalCartCount}
+          onOpenCart={() => setIsCartOpen(true)}
+          onOpenSearch={() => setIsSearchOpen(true)}
+          onOpenAccount={() => setIsAccountOpen(true)}
+        />
 
-      {/* Main Content Area based on activeTab */}
-      <main className="flex-1">
-        {activeTab === 'home' && (
-          <>
-            <HeroSection
+        {/* Main Content Area based on activeTab */}
+        <main className="flex-1">
+          {activeTab === 'home' && (
+            <>
+              <HeroSection
+                onExploreClick={() => handleNavigate('shop')}
+              />
+              <CuratedVisions
+                products={PRODUCTS}
+                onSelectProduct={(p) => setSelectedProduct(p)}
+                onViewAllClick={() => handleNavigate('shop')}
+              />
+              <PhilosophySection
+                onReadEditorialClick={() => handleNavigate('editorial')}
+              />
+              <NewsletterSection />
+            </>
+          )}
+
+          {(activeTab === 'shop' || activeTab === 'collections') && (
+            <>
+              <ShopCatalog
+                products={PRODUCTS}
+                onSelectProduct={(p) => setSelectedProduct(p)}
+                onAddToCart={(p) => handleAddToCart(p, 1)}
+                initialCategory={activeTab === 'collections' ? 'ready-to-wear' : 'all'}
+              />
+              <NewsletterSection />
+            </>
+          )}
+
+          {activeTab === 'editorial' && (
+            <EditorialSection
+              onExploreCollection={() => handleNavigate('shop')}
+            />
+          )}
+
+          {activeTab === 'about' && (
+            <AboutModal
               onExploreClick={() => handleNavigate('shop')}
             />
-            <CuratedVisions
-              products={PRODUCTS}
-              onSelectProduct={(p) => setSelectedProduct(p)}
-              onViewAllClick={() => handleNavigate('shop')}
-            />
-            <PhilosophySection
-              onReadEditorialClick={() => handleNavigate('editorial')}
-            />
-            <NewsletterSection />
-          </>
-        )}
+          )}
+        </main>
 
-        {(activeTab === 'shop' || activeTab === 'collections') && (
-          <>
-            <ShopCatalog
-              products={PRODUCTS}
-              onSelectProduct={(p) => setSelectedProduct(p)}
-              onAddToCart={(p) => handleAddToCart(p, 1)}
-              initialCategory={activeTab === 'collections' ? 'ready-to-wear' : 'all'}
-            />
-            <NewsletterSection />
-          </>
-        )}
+        {/* Footer */}
+        <Footer
+          onNavigate={handleNavigate}
+          onOpenInfoModal={(title, content) => setInfoModalData({ title, content })}
+        />
+      </div>
 
-        {activeTab === 'editorial' && (
-          <EditorialSection
-            onExploreCollection={() => handleNavigate('shop')}
-          />
-        )}
-
-        {activeTab === 'about' && (
-          <AboutModal
-            onExploreClick={() => handleNavigate('shop')}
-          />
-        )}
-      </main>
-
-      {/* Footer */}
-      <Footer
-        onNavigate={handleNavigate}
-        onOpenInfoModal={(title, content) => setInfoModalData({ title, content })}
-      />
+      {/* RIGHT PANEL: CLOSERS Persuasive Design Explanation (Recognition Principle) */}
+      <div
+        id="right-explanation-panel"
+        className="w-[45%] sm:w-[42%] lg:w-[38%] xl:w-[35%] h-screen overflow-y-auto bg-[#111315] shrink-0 border-l border-[#2e3135]"
+      >
+        <RecognitionExplanationPanel
+          onOpenAccount={() => setIsAccountOpen(true)}
+          onOpenCart={() => setIsCartOpen(true)}
+        />
+      </div>
 
       {/* Modals & Drawers */}
       <ProductQuickViewModal
