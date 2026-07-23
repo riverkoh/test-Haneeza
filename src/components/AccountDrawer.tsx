@@ -75,36 +75,50 @@ export const AccountDrawer: React.FC<AccountDrawerProps> = ({
             {activeTab === 'profile' && (
               <div className="space-y-6">
                 <div className="flex items-center space-x-4 pb-6 border-b border-[#e2e2e2]">
-                  <div className="w-14 h-14 bg-[#1a1c1c] text-white flex items-center justify-center font-serif-display text-xl">
-                    HK
+                  <div className="w-14 h-14 bg-[#1a1c1c] text-[#d4af37] flex items-center justify-center font-serif-display text-xl font-semibold border border-[#c4a458]">
+                    JT
                   </div>
                   <div>
-                    <h4 className="font-serif-display text-lg text-black uppercase">
-                      Helena Kensington
+                    <h4 className="font-serif-display text-lg text-black uppercase font-semibold">
+                      John Tan
                     </h4>
-                    <p className="text-xs text-[#747878]">VIP Private Client</p>
+                    <div className="flex items-center space-x-2 mt-1">
+                      <span className="text-[9px] bg-black text-[#d4af37] px-2 py-0.5 font-bold uppercase tracking-widest">
+                        ACHIEVER LEVEL
+                      </span>
+                      <span className="text-xs text-[#747878] font-medium">Spend: $123</span>
+                    </div>
                   </div>
                 </div>
 
                 <div className="space-y-4 text-xs text-[#444748]">
+                  <div className="p-3 bg-[#f4ebd0]/60 border border-[#c4a458]">
+                    <span className="block text-[10px] font-bold tracking-[0.15em] uppercase text-black mb-1">
+                      ACHIEVEMENT TIER: ACHIEVER
+                    </span>
+                    <p className="text-[11px] text-[#1a1c1c] leading-relaxed">
+                      Unlocked by spending S$100.01 to S$200 (Current spend: $123). Enjoy priority atelier access, private fitting consultations, and complimentary global courier service.
+                    </p>
+                  </div>
+
                   <div>
                     <span className="block text-[10px] font-medium tracking-[0.15em] uppercase text-[#747878]">
                       PREFERRED CURRENCY
                     </span>
-                    <p className="text-sm font-medium text-black mt-0.5">USD ($)</p>
+                    <p className="text-sm font-medium text-black mt-0.5">SGD (S$) / USD ($)</p>
                   </div>
                   <div>
                     <span className="block text-[10px] font-medium tracking-[0.15em] uppercase text-[#747878]">
                       PRIMARY BOUTIQUE
                     </span>
-                    <p className="text-sm font-medium text-black mt-0.5">Mayfair, London W1S</p>
+                    <p className="text-sm font-medium text-black mt-0.5">Singapore Flagship / Mayfair Atelier</p>
                   </div>
                   <div>
                     <span className="block text-[10px] font-medium tracking-[0.15em] uppercase text-[#747878]">
                       SAVED ATELIER ADDRESS
                     </span>
                     <p className="text-sm font-medium text-black mt-0.5">
-                      74 Cadogan Square, Knightsbridge, London SW1X 0EA
+                      10 Marina Boulevard, Singapore 018983
                     </p>
                   </div>
                 </div>

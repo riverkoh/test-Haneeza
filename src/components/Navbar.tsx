@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, ShoppingBag, User, Menu, X } from 'lucide-react';
+import { Search, ShoppingBag, User, Menu, X, Award, Info } from 'lucide-react';
 import { ActiveTab } from '../types';
 
 interface NavbarProps {
@@ -44,10 +44,10 @@ export const Navbar: React.FC<NavbarProps> = ({
     <nav
       id="main-nav"
       className={`fixed top-0 left-0 w-full z-50 bg-[#ffffff] transition-all duration-300 border-b border-[#e2e2e2] ${
-        isScrolled ? 'py-4 shadow-xs' : 'py-6'
+        isScrolled ? 'py-3 shadow-xs' : 'py-5'
       }`}
     >
-      <div className="flex justify-between items-center w-full px-6 md:px-16 max-w-[1440px] mx-auto relative">
+      <div className="flex justify-between items-center w-full px-4 md:px-12 max-w-[1440px] mx-auto relative">
         {/* Mobile menu toggle */}
         <button
           id="mobile-menu-toggle"
@@ -59,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
 
         {/* Left Navigation Links */}
-        <div className="hidden md:flex items-center space-x-10">
+        <div className="hidden md:flex items-center space-x-8 lg:space-x-10">
           <button
             id="nav-link-shop"
             onClick={() => handleNavClick('shop')}
@@ -98,8 +98,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Right Actions */}
-        <div className="flex items-center space-x-6 md:space-x-8">
-          <div className="hidden md:flex items-center space-x-10 mr-4">
+        <div className="flex items-center space-x-4 md:space-x-6">
+          <div className="hidden lg:flex items-center space-x-8 mr-2">
             <button
               id="nav-link-editorial"
               onClick={() => handleNavClick('editorial')}
@@ -149,21 +149,90 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
           </button>
 
-          <button
-            id="nav-account-button"
-            onClick={onOpenAccount}
-            className="cursor-pointer text-[#1a1c1c] hover:opacity-60 transition-opacity p-1 hidden sm:block"
-            title="Account"
-            aria-label="Account"
-          >
-            <User size={20} strokeWidth={1.5} />
-          </button>
+          {/* Logged in User Profile & Achievement Level Badge (Top Right) */}
+          <div className="relative group cursor-pointer" id="user-achievement-badge">
+            <div
+              onClick={onOpenAccount}
+              className="flex items-center space-x-2 bg-[#f4ebd0]/60 hover:bg-[#f4ebd0] border border-[#c4a458] px-2.5 py-1 transition-all rounded-none"
+            >
+              <Award size={16} className="text-[#967018] shrink-0" />
+              <div className="text-left hidden sm:block">
+                <div className="flex items-center space-x-1.5">
+                  <span className="text-[10px] font-semibold tracking-wider text-[#1a1c1c] uppercase">
+                    JOHN TAN
+                  </span>
+                  <span className="text-[9px] bg-black text-[#d4af37] px-1.5 py-0.2 font-bold tracking-widest uppercase">
+                    ACHIEVER
+                  </span>
+                </div>
+                <p className="text-[9px] text-[#444748] font-medium tracking-tight">
+                  Spend so far: <span className="text-black font-semibold">$123</span>
+                </p>
+              </div>
+              <Info size={13} className="text-[#747878] hidden sm:block" />
+            </div>
+
+            {/* Achievement Tooltip on Hover */}
+            <div
+              id="achievement-levels-tooltip"
+              className="absolute right-0 top-full mt-2 w-72 bg-white border border-black shadow-2xl p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 text-left pointer-events-none group-hover:pointer-events-auto"
+            >
+              <div className="border-b border-[#e2e2e2] pb-2 mb-3 flex justify-between items-center">
+                <p className="text-[10px] font-bold tracking-[0.2em] text-black uppercase">
+                  LEVELS OF ACHIEVEMENT
+                </p>
+                <span className="text-[9px] text-[#747878]">Total: S$123</span>
+              </div>
+
+              <div className="space-y-2 text-[11px]">
+                <div className="p-2 border border-[#e2e2e2] bg-[#f9f9f9]">
+                  <p className="font-semibold text-black uppercase tracking-wider">
+                    Explorer
+                  </p>
+                  <p className="text-[#444748] mt-0.5">Spend S$50 to S$100.</p>
+                </div>
+
+                <div className="p-2 border border-[#c4a458] bg-[#f4ebd0]/80">
+                  <div className="flex justify-between items-center">
+                    <p className="font-bold text-black uppercase tracking-wider">
+                      Achiever
+                    </p>
+                    <span className="text-[8px] bg-black text-[#d4af37] px-1.5 py-0.5 font-bold uppercase tracking-widest">
+                      CURRENT LEVEL
+                    </span>
+                  </div>
+                  <p className="text-[#1a1c1c] font-medium mt-0.5">
+                    Spend S$100.01 to S$200.
+                  </p>
+                </div>
+
+                <div className="p-2 border border-[#e2e2e2] bg-[#f9f9f9]">
+                  <p className="font-semibold text-black uppercase tracking-wider">
+                    Champion
+                  </p>
+                  <p className="text-[#444748] mt-0.5">
+                    Spend more than S$200.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-[#e2e2e2] px-6 py-8 mt-4 space-y-6 animate-fadeIn">
+          <div className="pb-4 border-b border-[#e2e2e2] flex items-center justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-black">John Tan</p>
+              <p className="text-[10px] text-[#747878] uppercase">Level: Achiever • Spend: $123</p>
+            </div>
+            <span className="text-[9px] bg-black text-[#d4af37] px-2 py-0.5 font-bold uppercase">
+              ACHIEVER
+            </span>
+          </div>
+
           <div className="flex flex-col space-y-5">
             <button
               onClick={() => handleNavClick('home')}
@@ -201,3 +270,4 @@ export const Navbar: React.FC<NavbarProps> = ({
     </nav>
   );
 };
+
