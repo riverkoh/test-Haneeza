@@ -1,0 +1,6 @@
+{
+  "name": "HANEEZA",
+  "description": "Luxury fashion editorial and boutique e-commerce experience.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

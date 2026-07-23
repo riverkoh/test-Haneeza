@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Work Sans', sans-serif;
+    background-color: #f9f9f9;
+    color: #1a1c1c;
+  }
+
+  h1, h2, h3, h4, .font-serif-display {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+.font-serif-display {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-sans-work {
+  font-family: 'Work Sans', sans-serif;
+}
+
+/* Custom smooth transitions and animations */
+.hero-zoom {
+  transition: transform 10s ease-out;
+}
+
+.hero-zoom:hover {
+  transform: scale(1.05);
+}
+
+.border-b-thin {
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Scrollbar styling for high fashion feel */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1c1c;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #444748;
+}
